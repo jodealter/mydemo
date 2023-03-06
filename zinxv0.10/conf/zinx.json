@@ -1,0 +1,7 @@
+{
+  "Name": "zinxv0.9 demonServerApp",
+  "Host": "127.0.0.1",
+  "TcpPort": 8999,
+  "MaxConn": 2,
+  "WorkPoolSize": 10
+}
