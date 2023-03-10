@@ -1,0 +1,36 @@
+syntax = "proto3"; 						//指定版本信息，不指定会报错
+package pb;						//后期生成go文件的包名
+
+//message为关键字，作用为定义一种消息类型
+message Person {
+  string	name = 1;					//姓名
+  int32	age = 2;					//年龄
+  repeated string emails = 3; 		//电子邮件（repeated表示字段允许重复,类似于使用切片）
+  repeated PhoneNumber phones = 4;	//手机号
+}
+
+//enum为关键字，作用为定义一种枚举类型
+enum PhoneType {
+  MOBILE = 0;
+  HOME = 1;
+  WORK = 2;
+}
+
+//message为关键字，作用为定义一种消息类型可以被另外的消息类型嵌套使用
+message PhoneNumber {
+  string number = 1;
+  PhoneType type = 2; //这里表示这个PhoneType只能取上边的值
+}
+
+
+
+// protoc --proto_path=IMPORT_PATH --go_out=DST_DIR path/to/file.proto
+//                      文件的导入路径         输出路径  生成的文件
+
+/*
+
+    1.  --proto_path，指定了 .proto 文件导包时的路径，可以有多个，如果忽略则默认当前目录。
+    2.  --go_out， 指定了生成的go语言代码文件放入的文件夹
+    3.  允许使用protoc --go_out=./ *.proto的方式一次性编译多个 .proto 文件
+    4.  编译时，protobuf 编译器会把 .proto 文件编译成 .pd.go 文件
+    */
